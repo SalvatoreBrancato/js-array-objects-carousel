@@ -4,11 +4,12 @@
 
 #img-principale{
     height: 90%;
+    position: relative;
 }
 
 #img-secondarie{
     height: 90%;
-    position: relative;
+    /* position: relative; */
 }
 
 .slide-active{
@@ -39,4 +40,13 @@
     right: 20%;
     font-size: 30px;
     cursor: pointer;
+}
+
+.testo{
+    position: absolute;
+    bottom: 0;
+    right: 2%;
+    z-index: 1;
+    color: white;
+    text-align: end;
 }
