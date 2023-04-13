@@ -1,0 +1,42 @@
+#contenitore-slide{
+    height: 100vh;
+}
+
+#img-principale{
+    height: 90%;
+}
+
+#img-secondarie{
+    height: 90%;
+    position: relative;
+}
+
+.slide-active{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.slide{
+    width: 100%;
+    height: calc(100% / 5);
+    object-fit: cover;
+    object-position: right;
+    cursor: pointer;
+}
+
+.fa-sort-up{
+    position: absolute;
+    top: 2%;
+    right: 20%;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.fa-sort-down{
+    position: absolute;
+    bottom: 1%;
+    right: 20%;
+    font-size: 30px;
+    cursor: pointer;
+}
