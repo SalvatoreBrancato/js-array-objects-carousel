@@ -12,10 +12,20 @@
     /* position: relative; */
 }
 
-.slide-active{
+.immagine{
     height: 100%;
     width: 100%;
     object-fit: cover;
+    object-position: right;
+}
+
+.slide-big{
+    display: none;
+     height: 100%;
+}
+
+.active{
+    display: block;
 }
 
 .slide{
@@ -50,3 +60,4 @@
     color: white;
     text-align: end;
 }
+

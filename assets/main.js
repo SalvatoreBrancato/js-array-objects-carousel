@@ -1,10 +1,3 @@
-// Milestone 0:
-// Come nel primo carosello realizzato, focalizziamoci prima sulla creazione del markup statico: costruiamo il container e inseriamo l'immagine grande in modo da poter stilare lo slider.
-// Milestone 1:
-// Ora rimuoviamo i contenuti statici e usiamo l’array di oggetti letterali per popolare dinamicamente il carosello.
-// Al click dell'utente sulle frecce verso sinistra o destra, l'immagine attiva diventerà visibile e dovremo aggiungervi titolo e testo.
-// Milestone 2:
-// Aggiungere il **ciclo infinito** del carosello. Ovvero se la miniatura attiva è la prima e l'utente clicca la freccia verso destra, la miniatura che deve attivarsi sarà l'ultima e viceversa per l'ultima miniatura se l'utente clicca la freccia verso sinistra.
 // BONUS 1:
 // Aggiungere le thumbnails (sottoforma di miniatura) ed al click attivare l’immagine corrispondente.
 // BONUS 2:
@@ -36,20 +29,71 @@ const images = [
     }
 ];
 
-for (let i = 0; i < images.length; i++) {
-    let singolaImage = (images[i])
+ for (let i = 0; i < images.length; i++) {
+     let singolaImage = (images[i])
     
-    document.getElementById(`img-principale`).innerHTML = 
-    `
-    <img class="slide-active" src="./${singolaImage[`image`]}" alt="">
-    <div class="testo">
-        <h1>${singolaImage[`title`]}</h1>
-        <p>${singolaImage[`text`]}</p>
-    </div>
+     document.getElementById(`img-principale`).innerHTML += 
+     `
+     <div class="slide-big" id="box${i}">
+        <img class="immagine" src="./${singolaImage[`image`]}" alt="">
+        <div class="testo">
+            <h1>${singolaImage[`title`]}</h1>
+            <p>${singolaImage[`text`]}</p>
+        </div>     
+     </div>
     
-    `
-}
+     `
+     console.log(singolaImage[`image`])
+ }
+
+ document.querySelector(`.slide-big`).classList.add(`active`)
+
+ 
+
+// images.forEach((element, index) =>{
+//     console.log(`${element.image}, ${index.image}`)
+// })
 
 let arrowUp = document.getElementById(`up`)
 let arrowDown= document.getElementById(`down`)
+
+let immagineAttiva = 0
+
+
+arrowDown.addEventListener(`click`, function(){
+    let immaginePrecedente = document.getElementById(`box${immagineAttiva}`)
+    immagineAttiva = immagineAttiva + 1
+    
+    if (immagineAttiva == images.length) {
+            immagineAttiva = 0;
+        }
+        
+    let immagineSuccessiva= document.getElementById(`box${immagineAttiva}`);
+    
+    if (immaginePrecedente.classList.contains('active')){
+
+        immaginePrecedente.classList.remove('active');
+        immagineSuccessiva.classList.add('active');
+    }
+    
+} )
+
+arrowUp.addEventListener(`click`, function(){
+    let immaginePrecedente = document.getElementById(`box${immagineAttiva}`)
+    
+
+    if (immagineAttiva == 0) {
+            immagineAttiva = images.length;
+        }
+        
+    immagineAttiva = immagineAttiva - 1;
+    let immagineSuccessiva= document.getElementById(`box${immagineAttiva}`);
+    
+    if (immaginePrecedente.classList.contains('active')){
+
+        immaginePrecedente.classList.remove('active');
+        immagineSuccessiva.classList.add('active');
+    }
+    
+} )
 
