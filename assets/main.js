@@ -1,10 +1,3 @@
-// BONUS 1:
-// Aggiungere le thumbnails (sottoforma di miniatura) ed al click attivare l’immagine corrispondente.
-// BONUS 2:
-// Aggiungere funzionalità di autoplay: dopo un certo periodo di tempo (3 secondi) l’immagine attiva dovrà cambiare alla successiva.
-// BONUS 3:
-// Aggiungere bottoni di start/stop e di inversione del meccanismo di autoplay.
-
 const images = [
     {
         image: 'img/01.webp',
@@ -29,6 +22,7 @@ const images = [
     }
 ];
 
+//Ciclo for per stampare immagine principale nel DOM
  for (let i = 0; i < images.length; i++) {
      let singolaImage = (images[i])
     
@@ -48,20 +42,16 @@ const images = [
 
  document.querySelector(`.slide-big`).classList.add(`active`)
 
- 
-
-// images.forEach((element, index) =>{
-//     console.log(`${element.image}, ${index.image}`)
-// })
-
+ //icone arrow up and down
 let arrowUp = document.getElementById(`up`)
 let arrowDown= document.getElementById(`down`)
 
 let immagineAttiva = 0
 
-
+//funzione per far scorrere le immagini verso il basso quando si clicca arrow down
 arrowDown.addEventListener(`click`, function(){
     let immaginePrecedente = document.getElementById(`box${immagineAttiva}`)
+    let immagineSlidePrecedente = document.getElementById(`slide${immagineAttiva}`);
     immagineAttiva = immagineAttiva + 1
     
     if (immagineAttiva == images.length) {
@@ -69,31 +59,77 @@ arrowDown.addEventListener(`click`, function(){
         }
         
     let immagineSuccessiva= document.getElementById(`box${immagineAttiva}`);
+    let immagineSlideSuccessiva = document.getElementById(`slide${immagineAttiva}`);
     
     if (immaginePrecedente.classList.contains('active')){
 
         immaginePrecedente.classList.remove('active');
         immagineSuccessiva.classList.add('active');
+        immagineSlideSuccessiva.classList.remove(`opacity`);
+        immagineSlidePrecedente.classList.add(`opacity`);
     }
     
 } )
 
+//funzione per far scorrere le immagini verso il l'alto quando si clicca arrow up
 arrowUp.addEventListener(`click`, function(){
     let immaginePrecedente = document.getElementById(`box${immagineAttiva}`)
-    
+    let immagineSlidePrecedente = document.getElementById(`slide${immagineAttiva}`);
 
     if (immagineAttiva == 0) {
             immagineAttiva = images.length;
         }
         
     immagineAttiva = immagineAttiva - 1;
-    let immagineSuccessiva= document.getElementById(`box${immagineAttiva}`);
+    let immagineSuccessiva = document.getElementById(`box${immagineAttiva}`);
+    let immagineSlideSuccessiva = document.getElementById(`slide${immagineAttiva}`);
     
     if (immaginePrecedente.classList.contains('active')){
 
         immaginePrecedente.classList.remove('active');
         immagineSuccessiva.classList.add('active');
+        immagineSlideSuccessiva.classList.remove(`opacity`);
+        immagineSlidePrecedente.classList.add(`opacity`);
+        
     }
     
 } )
 
+//Ciclo for per stampare immagine secondarie nel DOM
+for (let i = 0; i < images.length; i++) {
+    let singolaImage = (images[i])
+   
+    document.getElementById(`img-secondarie`).innerHTML += 
+    `
+    <img class="slide opacity" id="slide${i}" src="./${singolaImage[`image`]}" alt="">
+   
+    `
+}
+
+let slide = document.querySelectorAll(`.slide`)
+let slideAttiva = 0
+slide.forEach((element, index)=>{
+    element.addEventListener(`click`, function (){
+
+        document.getElementById(`box${index}`).classList.add(`active`) 
+        document.getElementById(`slide${index}`).classList.remove(`opacity`) 
+        document.getElementById(`box${index - 1}`).classList.remove(`active`)
+        document.getElementById(`slide${index - 1}`).classList.add(`opacity`)
+        document.getElementById(`box${index + 1}`).classList.remove(`active`)
+        document.getElementById(`slide${index + 1}`).classList.add(`opacity`)
+        
+        console.log(element)
+        console.log(index)
+        console.log(slideAttiva)
+
+    })
+});
+
+console.log(slide)
+
+
+
+
+
+// let immagineSelezionata = document.getElementById(`slide${immaginePassiva}`)
+//     immaginePassiva = immaginePassiva + 1
